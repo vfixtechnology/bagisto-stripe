@@ -3,7 +3,7 @@
 return [
     [
         'key'    => 'sales.payment_methods.stripe',
-        'info'   => 'Stripe extension created for bagisto by Vfixtechnology.',
+        'info' => 'Stripe extension created for Bagisto by <a href="https://www.vfixtechnology.com" target="_blank" style="color: blue;">Vfix Technology</a>.',
         'name'   => 'Stripe',
         'sort'   => 7,
         'fields' => [

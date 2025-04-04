@@ -1,13 +1,15 @@
 {
     "name": "vfixtechnology/bagisto-stripe",
-    "description": "Stripe payment gateway for bagisto laravel open source ecommerce platform.",
+    "description": "Stripe payment gateway for Bagisto Laravel ecommerce platform",
     "license": "MIT",
+    "type": "library",
+    "keywords": ["bagisto", "stripe", "payment", "laravel", "ecommerce"],
     "autoload": {
         "psr-4": {
             "Vfixtechnology\\Stripe\\": "src/"
         }
     },
-	"extra": {
+    "extra": {
         "laravel": {
             "providers": [
                 "Vfixtechnology\\Stripe\\Providers\\StripeServiceProvider"
@@ -17,17 +19,30 @@
     },
     "authors": [
         {
-            "name": "Arun chahar",
+            "name": "Arun Chahar",
             "email": "info@vfixtechnology.com"
         }
     ],
     "minimum-stability": "dev",
-   "require": {
-    "razorpay/razorpay": "^2.0"
-},
-"scripts": {
+    "require": {
+        "php": "^8.1|^8.2|^8.3",
+        "stripe/stripe-php": "^14.0",
+        "laravel/framework": "^10.0|^11.0|^12.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.0",
+        "orchestra/testbench": "^8.0"
+    },
+    "scripts": {
         "post-autoload-dump": [
             "@php artisan vendor:publish --tag=public --force"
-        ]
+        ],
+        "test": "phpunit"
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
     }
 }
