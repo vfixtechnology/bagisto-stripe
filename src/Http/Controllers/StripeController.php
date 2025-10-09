@@ -32,7 +32,7 @@ class StripeController extends Controller
    * @param  \Webkul\Attribute\Repositories\OrderRepository  $orderRepository
    * @return void
    */
-  public function __construct(OrderRepository $orderRepository,  InvoiceRepository $invoiceRepository)
+  public function __construct(OrderRepository $orderRepository, InvoiceRepository $invoiceRepository)
   {
     $this->orderRepository = $orderRepository;
     $this->invoiceRepository = $invoiceRepository;
@@ -54,19 +54,21 @@ class StripeController extends Controller
 
     $shipping_rate = $cart->selected_shipping_rate ? $cart->selected_shipping_rate->price : 0; // shipping rate
     $discount_amount = $cart->discount_amount; // discount amount
-    $total_amount =  ($cart->sub_total + $cart->tax_total + $shipping_rate) - $discount_amount; // total amount
+    $total_amount = ($cart->sub_total + $cart->tax_total + $shipping_rate) - $discount_amount; // total amount
 
     $checkout_session = \Stripe\Checkout\Session::create([
-      'line_items' => [[
-        'price_data' => [
-          'currency' => $cart->global_currency_code,
-          'product_data' => [
-            'name' => 'Stripe Checkout Payment order id - ' . $cart->id,
+      'line_items' => [
+        [
+          'price_data' => [
+            'currency' => $cart->global_currency_code,
+            'product_data' => [
+              'name' => 'Stripe Checkout Payment order id - ' . $cart->id,
+            ],
+            'unit_amount' => $total_amount * 100,
           ],
-          'unit_amount' => $total_amount * 100,
-        ],
-        'quantity' => 1,
-      ]],
+          'quantity' => 1,
+        ]
+      ],
       'payment_method_types' => [
         'card',
       ],
@@ -104,7 +106,7 @@ class StripeController extends Controller
   public function failure()
   {
     session()->flash('error', 'Stripe payment either cancelled or transaction failure.');
-    return redirect()->route('shop.checkout.cart.index');
+    return redirect()->route('shop.checkout.onepage.index');
   }
 
   /**
